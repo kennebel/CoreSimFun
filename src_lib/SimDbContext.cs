@@ -3,20 +3,22 @@ using System.Reflection;
 using System.Linq.Expressions;
 using src_lib.Models;
 using System.IO;
+using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace src_lib
 {
     public class SimDbContext : DbContext
     {
         #region DbSets
-        public DbSet<SimState> State { get; set; }
+        public DbSet<SimState> SimState { get; set; }
         #endregion
-        
+
         #region Properties
         #endregion
 
         #region Construct / Destruct
-        public SimDbContext (DbContextOptions<SimDbContext> options)
+        public SimDbContext(DbContextOptions<SimDbContext> options)
             : base(options)
         {
         }
@@ -58,6 +60,12 @@ namespace src_lib
             }
 
             return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        }
+
+        public static void EnsureCreated(IServiceProvider serviceProvider)
+        {
+            var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
+            context.Database.EnsureCreated();
         }
         #endregion
     }

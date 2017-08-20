@@ -33,7 +33,7 @@ namespace src_web
             services.AddMvc();
 
             //Add DB services
-            string PathToDb = SimDbContext.FindDbFolder("SharedDb") + System.IO.Path.DirectorySeparatorChar + "CoreSimFun.db";
+            string PathToDb = SimDbContext.FindDbFolder(Configuration.GetSection("Database").GetValue<string>("DbPath")) + System.IO.Path.DirectorySeparatorChar + "CoreSimFun.db";
             services.AddDbContext<SimDbContext>(options =>options.UseSqlite("Data Source=" + PathToDb));
         }
 
@@ -61,6 +61,9 @@ namespace src_web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Database
+            SimDbContext.EnsureCreated(app.ApplicationServices);
         }
     }
 }
