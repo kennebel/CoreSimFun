@@ -33,7 +33,8 @@ namespace src_web
             services.AddMvc();
 
             //Add DB services
-            services.AddDbContext<SimDbContext>(options =>options.UseSqlite("Data Source=MvcMovie.db"));
+            string PathToDb = SimDbContext.FindDbFolder("SharedDb") + System.IO.Path.DirectorySeparatorChar + "CoreSimFun.db";
+            services.AddDbContext<SimDbContext>(options =>options.UseSqlite("Data Source=" + PathToDb));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

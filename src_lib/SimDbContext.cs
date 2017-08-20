@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System.Linq.Expressions;
 using src_lib.Models;
+using System.IO;
 
 namespace src_lib
 {
@@ -10,22 +13,51 @@ namespace src_lib
         #endregion
         
         #region Properties
-        private string ConnectionString{ get; set; }
         #endregion
 
         #region Construct / Destruct
-        public SimDbContext (DbContextOptions<SimDbContext> options, string connectionString = null)
+        public SimDbContext (DbContextOptions<SimDbContext> options)
             : base(options)
         {
-            ConnectionString = connectionString;
         }
+        #endregion
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        #region Methods
+        public static string FindDbFolder(string name = null)
         {
-            if (!string.IsNullOrEmpty(ConnectionString))
+            if (!string.IsNullOrEmpty(name))
             {
-                optionsBuilder.UseSqlite(ConnectionString);
+                DirectoryInfo DI;
+                DirectoryInfo[] SubFolders;
+                string BaseLocation = "";
+                string Location = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+                while (!Location.EndsWith(name))
+                {
+                    DI = new DirectoryInfo(Location);
+                    SubFolders = DI.GetDirectories();
+                    foreach (var SubFolder in SubFolders)
+                    {
+                        if (SubFolder.Name == name)
+                        {
+                            return SubFolder.FullName;
+                        }
+                    }
+
+                    if (DI.Parent != null)
+                    {
+                        BaseLocation = DI.Parent.FullName;
+                        if (BaseLocation == Location) { break; }
+                        Location = BaseLocation;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
+
+            return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
         #endregion
     }
