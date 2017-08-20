@@ -40,14 +40,16 @@ namespace src_sim
         private static void Configure()
         {
             // Database
+            SimDbContext.Options = serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>();
             SimDbContext.EnsureCreated(serviceProvider);
+            SimDbContext.DbInitialize(serviceProvider);
         }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello There~");
 
-            using (var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>()))
+            using (var context = new SimDbContext())
             {
                 context.SimState.Add(new SimState(){
                    StartRun = DateTime.Now.AddSeconds(-10),

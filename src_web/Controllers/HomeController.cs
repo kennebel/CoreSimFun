@@ -23,7 +23,7 @@ namespace src_web.Controllers
         {
             var model = new HomeViewModel();
 
-            using (var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>()))
+            using (var context = new SimDbContext())
             {
                 model.SimStates = context.SimState.ToList();
             }

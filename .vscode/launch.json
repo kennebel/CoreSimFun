@@ -46,24 +46,7 @@
             "args": [],
             "cwd": "${workspaceRoot}/src_sim",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "launchBrowser": {
-                "enabled": true,
-                "args": "${auto-detect-url}",
-                "windows": {
-                    "command": "cmd.exe",
-                    "args": "/C start ${auto-detect-url}"
-                },
-                "osx": {
-                    "command": "open"
-                },
-                "linux": {
-                    "command": "xdg-open"
-                }
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "name": ".NET Core Attach",

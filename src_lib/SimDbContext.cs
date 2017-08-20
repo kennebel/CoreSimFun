@@ -5,6 +5,7 @@ using src_lib.Models;
 using System.IO;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace src_lib
 {
@@ -15,12 +16,16 @@ namespace src_lib
         #endregion
 
         #region Properties
+        public static DbContextOptions<SimDbContext> Options{ get; set; }
         #endregion
 
         #region Construct / Destruct
+        public SimDbContext() : base(Options) { }
+
         public SimDbContext(DbContextOptions<SimDbContext> options)
             : base(options)
         {
+            Options = options;
         }
         #endregion
 
@@ -66,6 +71,19 @@ namespace src_lib
         {
             var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
             context.Database.EnsureCreated();
+        }
+
+        public static void DbInitialize(IServiceProvider serviceProvider)
+        {
+            using (var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>()))
+            {
+                if (context.SimState.Any())
+                {
+                    return;   // DB has been seeded
+                }
+
+                // Otherwise initialize!
+            }
         }
         #endregion
     }
