@@ -51,9 +51,12 @@ namespace src_sim
         {
             Console.WriteLine("Hello There~");
 
-            SimStateMgr.LogSimState(SimState.Event.StartUp);
+            DbMgr.LogSimEvent(SimEvent.Event.StartUp);
 
-            SimStateMgr.LogSimState(SimState.Event.ShutDown);
+            SimInfo.instance.TickCount++;
+            SimInfo.Save();
+
+            DbMgr.LogSimEvent(SimEvent.Event.ShutDown);
         }
     }
 }

@@ -5,19 +5,19 @@ using src_lib.Models;
 
 namespace src_lib
 {
-    public static class SimStateMgr
+    public static partial class DbMgr
     {
         /// <summary>
-        /// Inserts a new SimState to the database
+        /// Inserts a new SimEvent to the database
         /// </summary>
         /// <param name="eventType">The event being logged</param>
         /// <param name="message">Optional message</param>
         /// <returns>True if the new sim state was logged to the database</returns>
-        public static bool LogSimState(SimState.Event eventType, string message = null)
+        public static bool LogSimEvent(SimEvent.Event eventType, string message = null)
         {
             using (var context = new SimDbContext())
             {
-                context.SimState.Add(new SimState() {
+                context.SimEvents.Add(new SimEvent() {
                    EventTime = DateTime.Now,
                    EventType = eventType,
                    Message = message
@@ -28,21 +28,21 @@ namespace src_lib
         }
 
         /// <summary>
-        /// Pulls out the most recent SimStates
+        /// Pulls out the most recent SimEvents
         /// </summary>
         /// <param name="recentCount"></param>
         /// <returns></returns>
-        public static IEnumerable<SimState> RecentStates(int recentCount=5)
+        public static IEnumerable<SimEvent> RecentSimEvents(int recentCount=5)
         {
             if (recentCount > 0)
             {
                 using (var context = new SimDbContext())
                 {
-                    return context.SimState.OrderByDescending(s => s.EventTime).Take(recentCount).ToList();
+                    return context.SimEvents.OrderByDescending(s => s.EventTime).Take(recentCount).ToList();
                 }
             }
 
-            return new List<SimState>();
+            return new List<SimEvent>();
         }
     }
 }

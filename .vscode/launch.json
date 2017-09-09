@@ -8,7 +8,7 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build web",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceRoot}/src_web/bin/Debug/netcoreapp1.1/src_web.dll",
             "args": [],
@@ -40,7 +40,7 @@
             "name": ".NET Core Launch (sim)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build sim",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceRoot}/src_sim/bin/Debug/netcoreapp1.1/src_sim.dll",
             "args": [],

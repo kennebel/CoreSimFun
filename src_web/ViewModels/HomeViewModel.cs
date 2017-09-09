@@ -6,6 +6,8 @@ namespace src_web.ViewModels
 {
     public class HomeViewModel
     {
-        public List<SimState> SimStates{ get; set; }
+        public List<SimEvent> SimEvents{ get; set; }
+
+        public string TestMessage { get; set; }
     }
 }

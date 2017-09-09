@@ -2,7 +2,7 @@
 
 namespace src_lib.Models
 {
-    public class SimState
+    public class SimEvent
     {
         #region Properties
         public int Id { get; set; }

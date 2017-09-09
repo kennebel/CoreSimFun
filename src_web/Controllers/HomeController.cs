@@ -23,10 +23,8 @@ namespace src_web.Controllers
         {
             var model = new HomeViewModel();
 
-            using (var context = new SimDbContext())
-            {
-                model.SimStates = context.SimState.ToList();
-            }
+            model.SimEvents = DbMgr.RecentSimEvents().ToList();
+            model.TestMessage = "Some Message: " + DateTime.Now.ToString();
 
             return View(model);
         }
@@ -37,14 +35,6 @@ namespace src_web.Controllers
 
             return View();
         }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Error()
         {
             return View();

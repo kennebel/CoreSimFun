@@ -12,7 +12,8 @@ namespace src_lib
     public class SimDbContext : DbContext
     {
         #region DbSets
-        public DbSet<SimState> SimState { get; set; }
+        public DbSet<SimEvent> SimEvents { get; set; }
+        public DbSet<SimInfo> SimInfos { get; set; }
         #endregion
 
         #region Properties
@@ -77,7 +78,7 @@ namespace src_lib
         {
             using (var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>()))
             {
-                if (context.SimState.Any())
+                if (context.SimEvents.Any())
                 {
                     return;   // DB has been seeded
                 }

@@ -1,16 +1,23 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
+    "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build",
+            "taskName": "build web",
+            "args": [
+                "${workspaceRoot}/src_web/src_web.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "command": "dotnet build",
+            "type": "shell"
+        },
+        {
+            "taskName": "build sim",
             "args": [
                 "${workspaceRoot}/src_sim/src_sim.csproj"
             ],
-            "isBuildCommand": true,
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "command": "dotnet build",
+            "type": "shell"
         }
     ]
 }
