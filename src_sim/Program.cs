@@ -14,7 +14,9 @@ namespace src_sim
         private static readonly IServiceProvider serviceProvider;
         #endregion
 
+        #region Properties
         public static IConfigurationRoot Configuration { get; }
+        #endregion
 
         static Program()
         {
@@ -49,16 +51,9 @@ namespace src_sim
         {
             Console.WriteLine("Hello There~");
 
-            using (var context = new SimDbContext())
-            {
-                context.SimState.Add(new SimState(){
-                   StartRun = DateTime.Now.AddSeconds(-10),
-                   StopRun = DateTime.Now,
-                   Message = "All good" 
-                });
+            SimStateMgr.LogSimState(SimState.Event.StartUp);
 
-                context.SaveChanges();
-            }
+            SimStateMgr.LogSimState(SimState.Event.ShutDown);
         }
     }
 }
