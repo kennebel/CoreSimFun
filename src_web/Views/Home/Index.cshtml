@@ -1,6 +1,6 @@
 ﻿@model src_web.ViewModels.HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Core Sim Fun";
 }
 
 <div class="row">
@@ -13,6 +13,14 @@
             }
         </ul>
     </div>
+    <div class="col-md-6">
+        <h2>Info</h2>
+        <ul>
+            <li>Tick Count: @Model.Info.TickCount</li>
+        </ul>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <h2>Test Message</h2>
         <p>@Model.TestMessage</p>

@@ -24,7 +24,7 @@ namespace src_web.Controllers
             var model = new HomeViewModel();
 
             model.SimEvents = DbMgr.RecentSimEvents().ToList();
-            model.TestMessage = "Some Message: " + DateTime.Now.ToString();
+            model.Info = DbMgr.GetSimInfo();
 
             return View(model);
         }

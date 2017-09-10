@@ -8,6 +8,8 @@ namespace src_web.ViewModels
     {
         public List<SimEvent> SimEvents{ get; set; }
 
+        public SimInfo Info { get; set; }
+
         public string TestMessage { get; set; }
     }
 }
