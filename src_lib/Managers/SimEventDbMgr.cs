@@ -5,7 +5,7 @@ using src_lib.Models;
 
 namespace src_lib
 {
-    public static partial class DbMgr
+    public partial class DbMgr
     {
         /// <summary>
         /// Inserts a new SimEvent to the database
@@ -13,7 +13,7 @@ namespace src_lib
         /// <param name="eventType">The event being logged</param>
         /// <param name="message">Optional message</param>
         /// <returns>True if the new sim state was logged to the database</returns>
-        public static bool LogSimEvent(SimEvent.Event eventType, string message = null)
+        public bool LogSimEvent(SimEvent.Event eventType, string message = null)
         {
             using (var context = new SimDbContext())
             {
@@ -32,7 +32,7 @@ namespace src_lib
         /// </summary>
         /// <param name="recentCount"></param>
         /// <returns></returns>
-        public static IEnumerable<SimEvent> RecentSimEvents(int recentCount=5)
+        public IEnumerable<SimEvent> RecentSimEvents(int recentCount=5)
         {
             if (recentCount > 0)
             {

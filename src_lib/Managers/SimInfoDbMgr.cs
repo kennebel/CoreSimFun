@@ -5,9 +5,9 @@ using src_lib.Models;
 
 namespace src_lib
 {
-    public static partial class DbMgr
+    public partial class DbMgr
     {
-        public static bool SaveSimInfo(SimInfo save)
+        public bool SaveSimInfo(SimInfo save)
         {
             using (var context = new SimDbContext())
             {
@@ -18,11 +18,13 @@ namespace src_lib
             }
         }
 
-        public static SimInfo GetSimInfo()
+        public SimInfo GetSimInfo()
         {
             using (var context = new SimDbContext())
             {
-                return context.SimInfos.FirstOrDefault();
+                var Result = context.SimInfos.FirstOrDefault();
+                if (Result == null) { Result = new SimInfo(); }
+                return Result;
             }
         }
     }

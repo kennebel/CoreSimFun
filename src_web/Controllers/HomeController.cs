@@ -13,18 +13,20 @@ namespace src_web.Controllers
     public class HomeController : Controller
     {
         private IServiceProvider serviceProvider{ get; set; }
+        private DbMgr DB { get; set; }
 
-        public HomeController(IServiceProvider ServiceProvider)
+        public HomeController(IServiceProvider ServiceProvider/*, ISimDbContext simDb*/)
         {
             serviceProvider = ServiceProvider;
+            DB = new DbMgr(new SimDbContext()); // TODO: Replace with depdency injection!
         }
 
         public IActionResult Index()
         {
             var model = new HomeViewModel();
 
-            model.SimEvents = DbMgr.RecentSimEvents().ToList();
-            model.Info = DbMgr.GetSimInfo();
+            model.SimEvents = DB.RecentSimEvents().ToList();
+            model.Info = DB.GetSimInfo();
 
             return View(model);
         }

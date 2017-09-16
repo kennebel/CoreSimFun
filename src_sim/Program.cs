@@ -17,7 +17,7 @@ namespace src_sim
         #region Properties
         public static IConfigurationRoot Configuration { get; }
 
-        public static ISimDbContext DB { get; set; }
+        public static DbMgr DB { get; set; }
         #endregion
 
         static Program()
@@ -44,21 +44,24 @@ namespace src_sim
         private static void Configure()
         {
             // Database
-            DB = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
-            DB.EnsureCreated(serviceProvider);
-            DB.DbInitialize(serviceProvider);
+            var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
+            context.EnsureCreated(serviceProvider);
+            context.DbInitialize(serviceProvider);
+
+            DB = new DbMgr(context);
         }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello There~");
 
-            DbMgr.LogSimEvent(SimEvent.Event.StartUp);
+            DB.LogSimEvent(SimEvent.Event.StartUp);
 
-            SimInfo.instance.TickCount++;
-            SimInfo.Save();
+            var si = DB.GetSimInfo();
+            si.TickCount++;
+            DB.SaveSimInfo(si);
 
-            DbMgr.LogSimEvent(SimEvent.Event.ShutDown);
+            DB.LogSimEvent(SimEvent.Event.ShutDown);
         }
     }
 }
