@@ -16,6 +16,8 @@ namespace src_sim
 
         #region Properties
         public static IConfigurationRoot Configuration { get; }
+
+        public static ISimDbContext DB { get; set; }
         #endregion
 
         static Program()
@@ -42,9 +44,9 @@ namespace src_sim
         private static void Configure()
         {
             // Database
-            SimDbContext.Options = serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>();
-            SimDbContext.EnsureCreated(serviceProvider);
-            SimDbContext.DbInitialize(serviceProvider);
+            DB = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
+            DB.EnsureCreated(serviceProvider);
+            DB.DbInitialize(serviceProvider);
         }
 
         static void Main(string[] args)

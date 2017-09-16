@@ -63,9 +63,9 @@ namespace src_web
             });
 
             // Database
-            SimDbContext.Options = app.ApplicationServices.GetRequiredService<DbContextOptions<SimDbContext>>();
-            SimDbContext.EnsureCreated(app.ApplicationServices);
-            SimDbContext.DbInitialize(app.ApplicationServices);
+            var DB = new SimDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<SimDbContext>>());
+            DB.EnsureCreated(app.ApplicationServices);
+            DB.DbInitialize(app.ApplicationServices);
         }
     }
 }

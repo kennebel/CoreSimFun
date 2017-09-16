@@ -31,7 +31,7 @@ namespace src_lib
         #endregion
 
         #region Methods
-        public string FindDbFolder(string name = null)
+        public static string FindDbFolder(string name = null)
         {
             if (!string.IsNullOrEmpty(name))
             {
