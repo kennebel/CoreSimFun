@@ -4,7 +4,7 @@ using src_lib.Models;
 
 namespace src_web.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : BaseViewModel
     {
         public List<SimEvent> SimEvents{ get; set; }
 
