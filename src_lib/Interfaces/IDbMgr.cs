@@ -15,14 +15,4 @@ namespace src_lib
          IEnumerable<SimEvent> RecentSimEvents(int recentCount=5);
          #endregion
     }
-
-    public partial class DbMgr : IDbMgr
-    {
-        protected ISimDbContext DB { get; set; }
-
-        public DbMgr(ISimDbContext db)
-        {
-            DB = db;
-        }
-    }
 }

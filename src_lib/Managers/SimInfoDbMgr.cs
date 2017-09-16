@@ -9,23 +9,17 @@ namespace src_lib
     {
         public bool SaveSimInfo(SimInfo save)
         {
-            using (var context = new SimDbContext())
-            {
-                if (save.Id == 0) { context.SimInfos.Add(save); }
-                else { context.SimInfos.Update(save); }
+            if (save.Id == 0) { DB.SimInfos.Add(save); }
+            else { DB.SimInfos.Update(save); }
 
-                return (context.SaveChanges() == 1);
-            }
+            return (DB.SaveChanges() == 1);
         }
 
         public SimInfo GetSimInfo()
         {
-            using (var context = new SimDbContext())
-            {
-                var Result = context.SimInfos.FirstOrDefault();
-                if (Result == null) { Result = new SimInfo(); }
-                return Result;
-            }
+            var Result = DB.SimInfos.FirstOrDefault();
+            if (Result == null) { Result = new SimInfo(); }
+            return Result;
         }
     }
 }

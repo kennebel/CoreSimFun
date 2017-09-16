@@ -15,16 +15,13 @@ namespace src_lib
         /// <returns>True if the new sim state was logged to the database</returns>
         public bool LogSimEvent(SimEvent.Event eventType, string message = null)
         {
-            using (var context = new SimDbContext())
-            {
-                context.SimEvents.Add(new SimEvent() {
-                   EventTime = DateTime.Now,
-                   EventType = eventType,
-                   Message = message
-                });
+            DB.SimEvents.Add(new SimEvent() {
+                EventTime = DateTime.Now,
+                EventType = eventType,
+                Message = message
+            });
 
-                return (context.SaveChanges() == 1);
-            }
+            return (DB.SaveChanges() == 1);
         }
 
         /// <summary>
@@ -36,10 +33,7 @@ namespace src_lib
         {
             if (recentCount > 0)
             {
-                using (var context = new SimDbContext())
-                {
-                    return context.SimEvents.OrderByDescending(s => s.EventTime).Take(recentCount).ToList();
-                }
+                return DB.SimEvents.OrderByDescending(s => s.EventTime).Take(recentCount).ToList();
             }
 
             return new List<SimEvent>();
