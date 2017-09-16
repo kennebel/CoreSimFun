@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace src_lib
 {
-    public class SimDbContext : DbContext
+    public class SimDbContext : DbContext, ISimDbContext
     {
         #region DbSets
         public DbSet<SimEvent> SimEvents { get; set; }
@@ -31,7 +31,7 @@ namespace src_lib
         #endregion
 
         #region Methods
-        public static string FindDbFolder(string name = null)
+        public string FindDbFolder(string name = null)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -68,13 +68,13 @@ namespace src_lib
             return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
-        public static void EnsureCreated(IServiceProvider serviceProvider)
+        public void EnsureCreated(IServiceProvider serviceProvider)
         {
             var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>());
             context.Database.EnsureCreated();
         }
 
-        public static void DbInitialize(IServiceProvider serviceProvider)
+        public void DbInitialize(IServiceProvider serviceProvider)
         {
             using (var context = new SimDbContext(serviceProvider.GetRequiredService<DbContextOptions<SimDbContext>>()))
             {
