@@ -1,8 +1,8 @@
-namespace src_lib.Interfaces
+namespace src_lib
 {
     public interface IUnitOfWork
     {
-         void Commit();
+         int Commit();
          void Rollback();
     }
 }

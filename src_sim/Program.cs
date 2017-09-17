@@ -57,9 +57,10 @@ namespace src_sim
 
             DB.LogSimEvent(SimEvent.Event.StartUp);
 
-            var si = DB.GetSimInfo();
+            var SIDB = new SimInfoDbMgr(new SimInfoRepository(DB.DB), new UnitOfWork(DB.DB));
+            var si = SIDB.GetSimInfo();
             si.TickCount++;
-            DB.SaveSimInfo(si);
+            SIDB.SaveSimInfo(si);
 
             DB.LogSimEvent(SimEvent.Event.ShutDown);
         }

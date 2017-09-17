@@ -1,22 +1,20 @@
+using System.Linq;
 using src_lib.Models;
 
 namespace src_lib
 {
-    public interface ISimInfoRepository
-    {
-        SimInfo Upsert(SimInfo si);
-
-        bool Remove(SimInfo si);
-        bool Remove(int id);
-    }
-
     public class SimInfoRepository : ISimInfoRepository
     {
         protected SimDbContext DB { get; set; }
 
-        public SimInfoRepository(SimDbContext db = null)
+        public SimInfoRepository(SimDbContext db)
         {
             DB = db ?? new SimDbContext();
+        }
+
+        public SimInfo Get()
+        {
+            return DB.SimInfos.FirstOrDefault();
         }
 
         public SimInfo Upsert(SimInfo si)
@@ -27,15 +25,9 @@ namespace src_lib
             return null;
         }
 
-        bool Remove(SimInfo si)
+        public bool Remove(SimInfo si)
         {
-            return Remove(si.Id);
-        }
-
-        bool Remove(int id)
-        {
-            
-            return false;
+            return DB.SimInfos.Remove(si) != null;
         }
     }
 }

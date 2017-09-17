@@ -5,7 +5,7 @@ namespace src_lib
 {
     public partial class DbMgr : IDbMgr
     {
-        protected SimDbContext DB { get; set; }
+        public SimDbContext DB { get; set; }
 
         public DbMgr(SimDbContext db)
         {
