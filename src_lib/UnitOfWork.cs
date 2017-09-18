@@ -18,5 +18,15 @@ namespace src_lib
         {
             throw new System.NotImplementedException();
         }
+
+        public bool BatchStart()
+        {
+            return false;
+        }
+
+        public bool BatchFinish()
+        {
+            return false;
+        }
     }
 }

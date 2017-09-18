@@ -48,7 +48,7 @@ namespace src_sim
             context.EnsureCreated(serviceProvider);
             context.DbInitialize(serviceProvider);
 
-            DB = new DbMgr(context);
+            DB = new DbMgr(new SimRepository(context), new UnitOfWork(context));
         }
 
         static void Main(string[] args)
@@ -57,10 +57,9 @@ namespace src_sim
 
             DB.LogSimEvent(SimEvent.Event.StartUp);
 
-            var SIDB = new SimInfoDbMgr(new SimInfoRepository(DB.DB), new UnitOfWork(DB.DB));
-            var si = SIDB.GetSimInfo();
+            var si = DB.GetSimInfo();
             si.TickCount++;
-            SIDB.SaveSimInfo(si);
+            DB.SaveSimInfo(si);
 
             DB.LogSimEvent(SimEvent.Event.ShutDown);
         }

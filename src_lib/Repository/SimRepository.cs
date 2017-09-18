@@ -3,21 +3,22 @@ using src_lib.Models;
 
 namespace src_lib
 {
-    public class SimInfoRepository : ISimInfoRepository
+    public class SimRepository : ISimRepository
     {
         protected SimDbContext DB { get; set; }
 
-        public SimInfoRepository(SimDbContext db)
+        #region SimInfo
+        public SimRepository(SimDbContext db)
         {
             DB = db ?? new SimDbContext();
         }
 
-        public SimInfo Get()
+        public SimInfo GetSimInfo()
         {
             return DB.SimInfos.FirstOrDefault();
         }
 
-        public SimInfo Upsert(SimInfo si)
+        public SimInfo UpsertSimInfo(SimInfo si)
         {
             if (si.Id == 0) { DB.SimInfos.Add(si); }
             else { DB.SimInfos.Update(si); }
@@ -25,9 +26,10 @@ namespace src_lib
             return null;
         }
 
-        public bool Remove(SimInfo si)
+        public bool RemoveSimInfo(SimInfo si)
         {
             return DB.SimInfos.Remove(si) != null;
         }
+        #endregion
     }
 }

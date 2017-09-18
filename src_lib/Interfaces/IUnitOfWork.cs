@@ -4,5 +4,8 @@ namespace src_lib
     {
          int Commit();
          void Rollback();
+
+         bool BatchStart();
+         bool BatchFinish();
     }
 }
