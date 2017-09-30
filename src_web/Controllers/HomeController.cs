@@ -20,7 +20,7 @@ namespace src_web.Controllers
             serviceProvider = ServiceProvider;
 
             var context = new SimDbContext();
-            DB = new DbMgr(new SimRepository(context), new UnitOfWork(context)); // TODO: Replace with depdency injection!
+            DB = new DbMgr(new UnitOfWork(context), new SimInfoRepository(context), new SimEventRepository(context)); // TODO: Replace with depdency injection!
         }
 
         public IActionResult Index()
