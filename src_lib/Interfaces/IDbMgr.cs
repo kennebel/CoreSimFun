@@ -7,7 +7,7 @@ namespace src_lib
     {
         #region SimInfo
         SimInfo GetSimInfo();
-        bool SaveSimInfo(SimInfo save);
+        bool UpsertSimInfo(SimInfo save);
         #endregion
 
          #region SimEvent

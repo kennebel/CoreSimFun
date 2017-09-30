@@ -5,13 +5,15 @@ namespace src_lib
 {
     public partial class DbMgr : IDbMgr
     {
-        protected ISimRepository Repository { get; set; }
+        protected ISimInfoRepository SimInfos { get; set; }
+        protected ISimEventRepository SimEvents { get; set; }
         protected IUnitOfWork UnitOfWork { get; set; }
 
-        public DbMgr(ISimRepository repository, IUnitOfWork unitOfWork)
+        public DbMgr(IUnitOfWork unitOfWork, ISimInfoRepository simInfoRepository, ISimEventRepository simEventRepository)
         {
-            Repository = repository;
             UnitOfWork = unitOfWork;
+            SimInfos = simInfoRepository;
+            SimEvents = simEventRepository;
         }
     }
 }

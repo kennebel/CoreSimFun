@@ -9,16 +9,23 @@ namespace src_lib
     {
         public SimInfo GetSimInfo()
         {
-            var Result = Repository.GetSimInfo();
+            var Result = SimInfos.GetSimInfo();
             if (Result == null) { Result = new SimInfo(); }
             return Result;
         }
 
-        public bool SaveSimInfo(SimInfo save)
+        public bool UpsertSimInfo(SimInfo save)
         {
-            Repository.UpsertSimInfo(save);
+            SimInfos.UpsertSimInfo(save);
 
             return (UnitOfWork.Commit() > 0);
         }
+
+        // public bool RemoveSimInfo(SimInfo si)
+        // {
+        //     Repository.RemoveSimInfo(si);
+
+        //     return (UnitOfWork.Commit() > 0);
+        // }
     }
 }

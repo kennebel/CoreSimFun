@@ -3,16 +3,20 @@ using src_lib.Models;
 
 namespace src_lib
 {
-    public class SimRepository : ISimRepository
+    public class SimInfoRepository : ISimInfoRepository
     {
+        #region Properties
         protected SimDbContext DB { get; set; }
+        #endregion
 
-        #region SimInfo
-        public SimRepository(SimDbContext db)
+        #region Construct / Destruct
+        public SimInfoRepository(SimDbContext db)
         {
             DB = db ?? new SimDbContext();
         }
+        #endregion
 
+        #region Interface Methods
         public SimInfo GetSimInfo()
         {
             return DB.SimInfos.FirstOrDefault();
