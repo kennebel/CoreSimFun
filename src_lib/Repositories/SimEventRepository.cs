@@ -25,12 +25,15 @@ namespace src_lib
         
         public SimEvent GetSimEvent(int id)
         {
-            throw new System.NotImplementedException();
+            return DB.SimEvents.Find(id);
         }
 
         public SimEvent UpsertSimEvent(SimEvent se)
         {
-            throw new System.NotImplementedException();
+            if (se.Id == 0) { DB.SimEvents.Add(se); }
+            else { DB.SimEvents.Update(se); }
+
+            return se;
         }
 
         public bool ClearAllEvents()

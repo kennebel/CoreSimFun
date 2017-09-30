@@ -12,15 +12,16 @@ namespace src_web.Controllers
 {
     public class HomeController : Controller
     {
-        private IServiceProvider serviceProvider{ get; set; }
-        private DbMgr DB { get; set; }
+        private IServiceProvider ServiceProvider{ get; set; }
+        private IDbMgr DB { get; set; }
 
-        public HomeController(IServiceProvider ServiceProvider/*, ISimDbContext simDb*/)
+        public HomeController(IServiceProvider serviceProvider, IDbMgr db)
         {
-            serviceProvider = ServiceProvider;
+            ServiceProvider = serviceProvider;
 
-            var context = new SimDbContext();
-            DB = new DbMgr(new UnitOfWork(context), new SimInfoRepository(context), new SimEventRepository(context)); // TODO: Replace with depdency injection!
+            //var context = new SimDbContext();
+            //DB = new DbMgr(new UnitOfWork(context), new SimInfoRepository(context), new SimEventRepository(context)); // TODO: Replace with depdency injection!
+            DB = db;
         }
 
         public IActionResult Index()

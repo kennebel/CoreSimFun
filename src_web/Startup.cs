@@ -34,7 +34,14 @@ namespace src_web
 
             //Add DB services
             string PathToDb = SimDbContext.FindDbFolder(Configuration.GetSection("Database").GetValue<string>("DbPath")) + System.IO.Path.DirectorySeparatorChar + "CoreSimFun.db";
-            services.AddDbContext<SimDbContext>(options =>options.UseSqlite("Data Source=" + PathToDb));
+            services.AddDbContext<SimDbContext>(options => options.UseSqlite("Data Source=" + PathToDb));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDbMgr, DbMgr>();
+
+            // Repositories
+            services.AddScoped<ISimInfoRepository, SimInfoRepository>();
+            services.AddScoped<ISimEventRepository, SimEventRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

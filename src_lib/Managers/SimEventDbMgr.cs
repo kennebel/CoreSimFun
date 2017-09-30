@@ -15,6 +15,7 @@ namespace src_lib
         /// <returns>True if the new sim state was logged to the database</returns>
         public bool LogSimEvent(SimEvent.Event eventType, string message = null)
         {
+            // TODO: Capture returned SimEvent and return it somehow
             SimEvents.UpsertSimEvent(new SimEvent() {
                 EventTime = DateTime.Now,
                 EventType = eventType,
