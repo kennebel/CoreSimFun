@@ -18,9 +18,6 @@ namespace src_web.Controllers
         public HomeController(IServiceProvider serviceProvider, IDbMgr db)
         {
             ServiceProvider = serviceProvider;
-
-            //var context = new SimDbContext();
-            //DB = new DbMgr(new UnitOfWork(context), new SimInfoRepository(context), new SimEventRepository(context)); // TODO: Replace with depdency injection!
             DB = db;
         }
 

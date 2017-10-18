@@ -21,11 +21,11 @@ namespace src_lib
             return (UnitOfWork.Commit() > 0);
         }
 
-        // public bool RemoveSimInfo(SimInfo si)
-        // {
-        //     Repository.RemoveSimInfo(si);
+        public bool RemoveSimInfo(SimInfo si)
+        {
+            SimInfos.RemoveSimInfo(si);
 
-        //     return (UnitOfWork.Commit() > 0);
-        // }
+            return (UnitOfWork.Commit() > 0);
+        }
     }
 }
